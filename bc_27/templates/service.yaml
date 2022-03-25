@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.back.name }}-back-service
+  name: {{ .Release.Name }}-back-service
   labels:
     name: {{ .Release.Name }}-back-service
     app: bc_27

@@ -10,13 +10,13 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      name: {{ .Values.front.name }}-front-pod
+      name: {{ .Values.front.name }}-pod
       app: bc_27    
   template:
     metadata:
-      name: {{ .Release.Name }}-front-pod
+      name: {{ .Values.front.name }}-pod
       labels:
-        name: {{ .Release.Name }}-front-pod
+        name: {{ .Values.front.name }}-pod
         app: {{ .Values.app }}
     spec:
       containers:
@@ -36,13 +36,13 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      name: {{ .Values.back.name }}-back-pod
+      name: {{ .Values.back.name }}-pod
       app: bc_27
   template:
     metadata:
-      name: {{ .Values.back.name }}-back-pod
+      name: {{ .Values.back.name }}-pod
       labels:
-        name: {{ .Values.back.name }}-back-pod
+        name: {{ .Values.back.name }}-pod
         app: bc_27
     spec:
       containers:
@@ -61,9 +61,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deploy
+  name: mysql
   labels:
-    name: mysql-deploy
+    name: mysql
     app: bc_27
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -85,9 +85,11 @@ spec:
           ports:
             - containerPort: 3306
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: {{ .Values.secert.SpringProfile }}
-            - name: spring_datasource_username
+            - name: MYSQL_USER
               value: {{ .Values.secert.Spring_user }} 
-            - name: spring_datasource_password
+            - name: MYSQL_PASSWORD
               value: {{ .Values.secert.Spring_passwd }}
+            - name: MYSQL_ROOT_PASSWORD
+              value: {{ .Values.secert.Spring_passwd }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.secert.db}}

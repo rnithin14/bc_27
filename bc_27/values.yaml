@@ -20,6 +20,7 @@ secert:
     SpringProfile: default
     Spring_user: tiger 
     Spring_passwd: passwd@123
+    db: bc_27_gc
 
 front:
    name: front-app
