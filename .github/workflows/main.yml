@@ -3,11 +3,8 @@ name: CI/CD
 on:
   # Triggers the workflow on push or pull request events but only for the  branch
   push:
-    branches: [master, dev, deploy]
-  #   paths:
-  #     - backend
-  # # Allows you to run this workflow manually from the Actions tabs
-  # workflow_dispatch:
+    branches: [master, deploy,]
+
 env:
   DOCKER_CONTAINER_NAME: "green-commute"
   DOCKER_CONATINER_NAME_DB: "backend"
@@ -97,31 +94,27 @@ jobs:
         env:
           DOCKER_TAG_BASE_URL: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
         run: docker push ${{ env.DOCKER_TAG_BASE_URL }}
+
   deploy:
-
     runs-on: ubuntu-latest
-    needs:
-    - frontend
-    - backend
-    if: ${{ github.event_name == 'push' }}
-
-
     steps:
-      - name: checkout the repo
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: extract branch name
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: Configure AWS Credentials
+      - name: login to github packages
+        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+        
+      - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-      - name: Connect to EKS cluster 
-        run: aws eks --region $EKS_REGION update-kubeconfig --name $EKS_CLUSTER
-      - name: run deploy 
-        run: |
-          kubectl set image deployment/front-app-deploy front-app=ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}
-          kubectl set image deployment/front-app-deploy front-app=ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-backend-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}
+          aws-region: us-east-1
+
+      - name: helm deploy
+        uses: koslib/helm-eks-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          command: helm upgrade <release name> --install --wait <chart> -f <path to values.yaml>
+
+            
