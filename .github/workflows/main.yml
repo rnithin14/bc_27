@@ -117,6 +117,6 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          command: helm install v1  bc_27 
+          command: helm upgrade v1 bc_27 --set=image.tag=${{ github.run_id }}
 
             
