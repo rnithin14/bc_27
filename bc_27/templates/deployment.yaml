@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-front-deploy
   labels:
-    name: {{ .Values.front.name }}-front-deploy
+    name: {{ .Release.Name }}-front-deploy
     app: bc_27
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -14,7 +14,7 @@ spec:
       app: bc_27    
   template:
     metadata:
-      name: {{ .Values.front.name }}-front-pod
+      name: {{ .Release.Name }}-front-pod
       labels:
         name: {{ .Release.Name }}-front-pod
         app: {{ .Values.app }}
@@ -30,7 +30,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-back-deploy
   labels:
-    name: {{ .Values.back.name }}-back-deploy
+    name: {{.Release.Name }}-back-deploy
     app: bc_27
 spec:
   replicas: {{ .Values.replicaCount }}
