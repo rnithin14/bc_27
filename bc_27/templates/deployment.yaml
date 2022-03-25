@@ -1,0 +1,93 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-front-deploy
+  labels:
+    name: {{ .Values.front.name }}-front-deploy
+    app: bc_27
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Values.front.name }}-front-pod
+      app: bc_27    
+  template:
+    metadata:
+      name: {{ .Values.front.name }}-front-pod
+      labels:
+        name: {{ .Release.Name }}-front-pod
+        app: {{ .Values.app }}
+    spec:
+      containers:
+        - name: {{ .Values.conatiner.name1 }}
+          image: "{{ .Values.image1.repository }}:{{ .Values.image1.tag }}"
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-back-deploy
+  labels:
+    name: {{ .Values.back.name }}-back-deploy
+    app: bc_27
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Values.back.name }}-back-pod
+      app: bc_27
+  template:
+    metadata:
+      name: {{ .Values.back.name }}-back-pod
+      labels:
+        name: {{ .Values.back.name }}-back-pod
+        app: bc_27
+    spec:
+      containers:
+        - name: {{ .Values.conatiner.name1 }}
+          image: "{{ .Values.image2.repository }}:{{ .Values.image2.tag }}"
+          ports:
+            - containerPort: 8090
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.secert.SpringProfile }}
+            - name: spring_datasource_username
+              value: {{ .Values.secert.Spring_user }} 
+            - name: spring_datasource_password
+              value: {{ .Values.secert.Spring_passwd }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+  labels:
+    name: mysql-deploy
+    app: bc_27
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: mysql-pod
+      app: bc_27
+    
+  template:
+    metadata:
+      name: mysql-pod
+      labels:
+        name: mysql-pod
+        app: bc_27
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.secert.SpringProfile }}
+            - name: spring_datasource_username
+              value: {{ .Values.secert.Spring_user }} 
+            - name: spring_datasource_password
+              value: {{ .Values.secert.Spring_passwd }}

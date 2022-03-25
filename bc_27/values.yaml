@@ -1,0 +1,28 @@
+replicaCount: 3
+
+
+image1: 
+    repository: ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-deploy
+    tag: latest
+image2:
+     repository: ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-backend-deploy
+     tag: latest
+
+
+conatiner:
+    name1: front-image
+    name2: back-image
+
+app: bc_27
+    
+
+secert: 
+    SpringProfile: default
+    Spring_user: tiger 
+    Spring_passwd: passwd@123
+
+front:
+   name: front-app
+
+back: 
+    name: back-app
