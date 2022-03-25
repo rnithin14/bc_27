@@ -1,0 +1,343 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "logo": "/assets/images/hp.svg",
+      "title": "User Experience Designer",
+      "company": "Hp",
+      "location": "Hitech City,Hyderabad -500072",
+      "city": "Hyderabad",
+      "commuteMode": [
+        "metro",
+        "car",
+        "bus",
+        "bike"
+      ],
+      "distance": "31 - 40 kms",
+      "jobType": "Internship",
+      "datePosted": "Past week",
+      "experinceLevel": "Mid-Level",
+      "greenCommute": "No",
+      "skills": [
+        "Ui Design",
+        "Ux design"
+      ]
+    },
+    {
+      "id": 2,
+      "logo": "/assets/images/bmw.svg",
+      "title": "User Experience Designer",
+      "company": "BMW",
+      "location": "Hitech City, Hyderabad -500072",
+      "commuteMode": [
+        "bike",
+        "car"
+      ],
+      "distance": "0 - 10 kms",
+      "jobType": "Full-Time",
+      "datePosted": "Past 24hrs",
+      "experinceLevel": "Fresher",
+      "greenCommute": "No",
+      "skills": [
+        "Ui Design",
+        "Ux design"
+      ]
+    },
+    {
+      "id": 3,
+      "logo": "assets/images/instagram.svg",
+      "title": "Associate Software Engineer",
+      "company": "Instagram",
+      "location": "Hitech City,Hyderabad -500072",
+      "commuteMode": [
+        "metro",
+        "bus",
+        "bike"
+      ],
+      "distance": "21 - 30 kms",
+      "jobType": "Contract",
+      "datePosted": "Past month",
+      "experinceLevel": "Director",
+      "greenCommute": "Yes",
+      "skills": [
+        "React",
+        "spring"
+      ]
+    },
+    {
+      "id": 4,
+      "logo": "/assets/images/myntra.svg",
+      "title": "Software Architect",
+      "company": "Myntra",
+      "location": "Hitech City,Hyderabad -500072",
+      "commuteMode": [
+        "car",
+        "bike"
+      ],
+      "distance": "41 - 50 kms",
+      "jobType": "Remote",
+      "datePosted": "Anytime",
+      "experinceLevel": "Executive",
+      "greenCommute": "No",
+      "skills": [
+        "Spring",
+        "Java",
+        "Javascript"
+      ]
+    },
+    {
+      "id": 5,
+      "logo": "/assets/images/hp.svg",
+      "title": "Lead Product Designer",
+      "company": "Hp",
+      "location": "Andheri , Mumbai-400059",
+      "city": "Mumbai",
+      "commuteMode": [
+        "metro",
+        "car",
+        "bus"
+      ],
+      "distance": "21 - 30 kms",
+      "jobType": "Full time",
+      "datePosted": "Past week",
+      "experinceLevel": "Mid-Level",
+      "greenCommute": "No",
+      "skills": [
+        "Ui Design",
+        "Ux design"
+      ]
+    },
+    {
+      "id": 6,
+      "logo": "/assets/images/bmw.svg",
+      "title": "User Interface Designer",
+      "company": "BMW",
+      "location": "Andheri, Mumbai 400072",
+      "city": "Mumbai",
+      "commuteMode": [
+        "metro",
+        "car",
+        "bus",
+        "bike"
+      ],
+      "distance": "21 - 30 kms",
+      "jobType": "Internship",
+      "datePosted": "Past week",
+      "experinceLevel": "Mid-Level",
+      "greenCommute": "No",
+      "skills": [
+        "Ui Design",
+        "Ux design"
+      ]
+    },
+    {
+      "id": 7,
+      "logo": "https://cdn.pixabay.com/photo/2016/08/09/17/52/instagram-1581266_1280.jpg",
+      "title": "Software Architect",
+      "company": "Instagram",
+      "location": "Andheri, Mumbai 400072",
+      "city": "Mumbai",
+      "commuteMode": [
+        "metro",
+        "car",
+        "bus"
+      ],
+      "distance": "21 - 30 kms",
+      "jobType": "Contract",
+      "datePosted": "Anytime",
+      "experinceLevel": "Mid-Level",
+      "greenCommute": "Yes",
+      "skills": [
+        "React",
+        "spring"
+      ]
+    },
+    {
+      "id": 8,
+      "logo": "/assets/images/myntra.svg",
+      "title": "Associate Software Engineer",
+      "company": "Myntra",
+      "location": "Navi Mumbai, Maharashtra 400710.",
+      "city": "Mumbai",
+      "commuteMode": [
+        "metro",
+        "car",
+        "bike"
+      ],
+      "distance": "21 - 30 kms",
+      "jobType": "Internship",
+      "datePosted": "Past month",
+      "experinceLevel": "Mid-Level",
+      "greenCommute": "No",
+      "skills": [
+        "Spring",
+        "Java",
+        "Javascript"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Prabhakar",
+      "email": "prabhakar@zemosolabs.com",
+      "password": "******",
+      "verified": true,
+      "last_login": "2022-02-10",
+      "is_recruiter": false
+    },
+    {
+      "id": 2,
+      "name": "Sudhakar",
+      "email": "sudhakar@zemosolabs.com",
+      "password": "******",
+      "verified": true,
+      "last_login": "2022-03-10",
+      "is_recruiter": true
+    }
+  ],
+  "savedJobs": [
+    {
+      "id": 1,
+      "jobs": [
+        {
+          "id": 5,
+          "logo": "/assets/images/hp.svg",
+          "title": "Lead Product Designer",
+          "company": "Hp",
+          "location": "Andheri , Mumbai-400059",
+          "city": "Mumbai",
+          "commuteMode": [
+            "metro",
+            "car",
+            "bus"
+          ],
+          "distance": "21 - 30 kms",
+          "jobType": "Full time",
+          "datePosted": "Past week",
+          "experinceLevel": "Mid-Level",
+          "greenCommute": "No",
+          "skills": [
+            "Ui Design",
+            "Ux design"
+          ]
+        },
+        {
+          "id": 4,
+          "logo": "/assets/images/myntra.svg",
+          "title": "Software Architect",
+          "company": "Myntra",
+          "location": "Hitech City,Hyderabad -500072",
+          "commuteMode": [
+            "car",
+            "bike"
+          ],
+          "distance": "41 - 50 kms",
+          "jobType": "Remote",
+          "datePosted": "Anytime",
+          "experinceLevel": "Executive",
+          "greenCommute": "No",
+          "skills": [
+            "Spring",
+            "Java",
+            "Javascript"
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": 1,
+      "name": "Angular"
+    },
+    {
+      "id": 2,
+      "name": "Spring"
+    },
+    {
+      "id": 3,
+      "name": "Java"
+    },
+    {
+      "id": 4,
+      "name": "React"
+    },
+    {
+      "id": 5,
+      "name": "Flutter"
+    },
+    {
+      "id": 6,
+      "name": "Uxdesign"
+    },
+    {
+      "id": 7,
+      "name": "UiDesign"
+    }
+  ],
+  "cities": [
+    {
+      "id": 1,
+      "name": "Banglore",
+      "aqiValue": 352
+    },
+    {
+      "id": 2,
+      "name": "Hyderabad",
+      "aqiValue": 894
+    },
+    {
+      "id": 3,
+      "name": "Mumbai",
+      "aqiValue": 953
+    },
+    {
+      "id": 4,
+      "name": "Chennai",
+      "aqiValue": 465
+    },
+    {
+      "id": 5,
+      "name": "Delhi",
+      "aqiValue": 989
+    }
+  ],
+  "jobCount": [
+    {
+      "id": 1,
+      "name": "Angular",
+      "count": 0
+    },
+    {
+      "id": 2,
+      "name": "Spring",
+      "count": 2
+    },
+    {
+      "id": 3,
+      "name": "Java",
+      "count": 1
+    },
+    {
+      "id": 4,
+      "name": "React",
+      "count": 1
+    },
+    {
+      "id": 5,
+      "name": "Flutter",
+      "count": 0
+    },
+    {
+      "id": 6,
+      "name": "Uxdesign",
+      "count": 2
+    },
+    {
+      "id": 7,
+      "name": "UiDesign",
+      "count": 2
+    }
+  ]
+}

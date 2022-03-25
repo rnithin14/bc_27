@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/arjung/Bootcamp27/bootcamp_27_gc/src/components/atoms/image/index.test.tsx">
+    <testCase name="renders an image" duration="37"/>
+  </file>
+</testExecutions>

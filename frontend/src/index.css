@@ -1,0 +1,7 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #373c38;
+}
+.notranslate {
+  display: none !important;
+}
