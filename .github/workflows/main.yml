@@ -11,8 +11,7 @@ env:
   GITHUB_PACKAGE_URL: https://ghcr.io
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  EKS_CLUSTER: ${{ secrets.EKS_CLUSTER }}
-  EKS_REGION: ${{ secrets.EKS_REGION }}
+
 
 jobs:
 
@@ -118,6 +117,6 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          command: helm upgrade v1 bc_27 
+          command: helm install v1  bc_27 
 
             
