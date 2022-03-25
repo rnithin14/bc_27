@@ -112,6 +112,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: login to github packages
+        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+        
       - name: helm deploy
         uses: koslib/helm-eks-action@master
         env:
