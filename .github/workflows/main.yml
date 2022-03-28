@@ -120,6 +120,4 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          run: |
-           
-           helm upgrade v1 bc_27 --set=image.tag=${{ github.run_id }}
+          command: helm upgrade v1 bc_27 --set=image.tag=${{ github.run_id }}
