@@ -50,8 +50,38 @@
        - name: display docker image name
          run: docker tag backdeployment "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}"
 
-  
+       - name: push image to github repo
+         run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}
+
+  frontend:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: checkout the repo
+        uses: actions/checkout@v2
+
+      - name: building image for frontend
+        run: docker build -t green-commute
+
+        - name: Login to Docker Hub
+         uses: docker/login-action@v1
+         with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+       - name: extract branch name
+         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+         id: extract_branch
+
+       - name: building image for backend
+         run: docker build  -t frontdeployment .
+
+       - name: display docker image name
+         run: docker tag frontdeployment "${{ secrets.DOCKERHUB_USERNAME }}/frontdeployment:${{ github.run_id }}"
 
        - name: push image to github repo
-         run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}"
- 
+         run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/frontdeployment:${{ github.run_id }}
+        
