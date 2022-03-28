@@ -24,6 +24,8 @@ spec:
           image: "{{ .Values.image1.repository }}:{{ .Values.image1.tag }}"
           ports:
             - containerPort: 80
+      imagePullSecrets:
+        - name: regsecret
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -57,6 +59,8 @@ spec:
               value: {{ .Values.secert.Spring_user }} 
             - name: spring_datasource_password
               value: {{ .Values.secert.Spring_passwd }}
+      imagePullSecrets:
+        - name: regsecret        
 ---
 apiVersion: apps/v1
 kind: Deployment
