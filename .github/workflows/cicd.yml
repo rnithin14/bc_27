@@ -1,59 +1,57 @@
-name: CI/CD
+ name: CI/CD
 
-on:
-  # Triggers the workflow on push or pull request events but only for the  branch
-  push:
-    branches: [master, deploy,]
+ on:
+   # Triggers the workflow on push or pull request events but only for the  branch
+   push:
+     branches: [master, deploy,]
 
-env:
-  DOCKER_CONTAINER_NAME: "green-commute"
-  DOCKER_CONATINER_NAME_DB: "backend"
-  GITHUB_PACKAGE_URL: https://ghcr.io
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ env:
+   DOCKER_CONTAINER_NAME: "green-commute"
+   DOCKER_CONATINER_NAME_DB: "backend"
+   GITHUB_PACKAGE_URL: https://ghcr.io
+   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 
-jobs:
+ jobs:
 
-  backend:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' }}
-    defaults:
-      run:
+   backend:
+     runs-on: ubuntu-latest
+     if: ${{ github.event_name == 'push' }}
+     defaults:
+       run:
         
-        working-directory: backend
+         working-directory: backend
 
-    steps:
-      - name: checkout the repo
-        uses: actions/checkout@v2
+     steps:
+       - name: checkout the repo
+         uses: actions/checkout@v2
 
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 13.0.7
-      - name: Build
-        run: mvn -DskipTests=true package --file pom.xml
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
+       - name: Set up JDK 1.8
+         uses: actions/setup-java@v1
+         with:
+           java-version: 13.0.7
+       - name: Build
+         run: mvn -DskipTests=true package --file pom.xml
+
+       - name: Login to Docker Hub
+         uses: docker/login-action@v1
+         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: extract branch name
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch 
+       - name: extract branch name
+         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+         id: extract_branch
 
-      - uses: actions/checkout@v2
-      - name: build image 
-        run: docker build . --file Dockerfile --tag "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}"
-      - name: docker push
- 
-        run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}"
+       - name: building image for backend
+         run: docker build  -t backdeployment .
+
+       - name: display docker image name
+         run: docker tag backdeployment "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}"
+
   
-  # frontend:
-  #      runs-on: ubuntu-latest
-  #      if: ${{ github.event_name == 'push' }}
-  #      defaults:
-  #       run:
-  #         working-directory: frontend
-  #      steps:  
+
+       - name: push image to github repo
+         run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}"
+ 
