@@ -33,31 +33,24 @@ jobs:
           java-version: 13.0.7
       - name: Build
         run: mvn -DskipTests=true package --file pom.xml
-
-      - name: login to github packages
-        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: extract branch name
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+        id: extract_branch 
 
-      - name: building image for backend
-        run: docker build  -t backend:v1 .
+      - uses: actions/checkout@v2
+      - name: build image 
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}
+      - name: docker push
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/deployment:${{ github.run_id }}
 
-      - name: display docker image name
-        env:
-          DOCKER_TAG_BASE_URL_DB: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-backend-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
-        run: echo "${{ env.DOCKER_TAG_BASE_URL_DB }}"
-
-      - name: taging image backend
-        env:
-          DOCKER_TAG_BASE_URL_DB: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-backend-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
-        run: docker tag backend:v1  ${{ env.DOCKER_TAG_BASE_URL_DB }}
-
-      - name: push image to github repo
-        env:
-          DOCKER_TAG_BASE_URL_DB: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-backend-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
-        run: docker push ${{ env.DOCKER_TAG_BASE_URL_DB }}
+      
  
   frontend:
     runs-on: ubuntu-latest
@@ -69,30 +62,16 @@ jobs:
       - name: checkout the repo
         uses: actions/checkout@v2
 
-      - name: building image for frontend
-        run: docker build -t green-commute:v1 .
-
-      - name: login to github packages
-        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
 
       - name: extract branch name
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+        id: extract_branch 
 
-      - name: display docker image name
-        env:
-          DOCKER_TAG_BASE_URL: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
-        run: echo "${{ env.DOCKER_TAG_BASE_URL }}"
-
-      - name: taging image
-        env:
-          DOCKER_TAG_BASE_URL: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
-        run: docker tag green-commute:v1  ${{ env.DOCKER_TAG_BASE_URL }}
-      # pushing images
-      - name: push image to github repo
-        env:
-          DOCKER_TAG_BASE_URL: "ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-${{ steps.extract_branch.outputs.branch }}:${{ github.run_id }}"
-        run: docker push ${{ env.DOCKER_TAG_BASE_URL }}
+      - uses: actions/checkout@v2
+      - name: build image 
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}/frontdeployment:${{ github.run_id }}
+      - name: docker push
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/deployment:${{ github.run_id }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -112,8 +91,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # - name: login to github packages
-      #   run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
         
       - name: helm deploy
         uses: koslib/helm-eks-action@master
@@ -121,7 +104,7 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           run: |
-           docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
+           
            helm upgrade v1 bc_27 --set=image.tag=${{ github.run_id }}
 
             
