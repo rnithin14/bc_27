@@ -102,18 +102,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: login to github packages
-        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
-
       - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
+      - name: login to github packages
+        run: docker login ${{ env.GITHUB_PACKAGE_URL }} -u ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_TOKEN }}
         
       - name: helm deploy
-        uses: scalive/github-action-eks-helm@master
+        uses: koslib/helm-eks-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
