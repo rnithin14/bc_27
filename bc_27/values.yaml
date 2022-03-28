@@ -2,10 +2,10 @@ replicaCount: 3
 
 
 image1: 
-    repository: ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-commute-deploy
+    repository: nithin321/frontdeployment
     tag: latest
 image2:
-     repository: ghcr.io/rnithin14/bootcamp_27_bd/bc27-green-backend-deploy
+     repository: nithin321/backdeployment
      tag: latest
 
 
