@@ -52,7 +52,6 @@
 
        - name: push image to github repo
          run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/backdeployment:${{ github.run_id }}
-
   frontend:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'push' }}
