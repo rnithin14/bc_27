@@ -112,7 +112,7 @@
          env:
            KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
          with:
-          command: helm upgrade  v1 bc_27 --set=image1.tag={{ github.run_id }} --set=image2.tag=${{ github.run_id }}
+          command: helm upgrade  v1 bc_27 --set=image2.repository="${{ secrets.DOCKERHUB_USERNAME }}/frontdeployment:${{ github.run_id }}" --set=image2.repository="${{ secrets.DOCKERHUB_USERNAME }}/backenddeployment:${{ github.run_id }}"
 
 
         

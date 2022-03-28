@@ -2,11 +2,13 @@ replicaCount: 3
 
 
 image1: 
-    repository: nithin321/frontdeployment
-    tag: latest
+    repository: nithin321/frontdeployment:2050786350
+    
 image2:
-     repository: nithin321/backdeployment
-     tag: latest
+     repository: nithin321/backdeployment:2050786350
+
+tag: latest
+      
 
 
 conatiner:

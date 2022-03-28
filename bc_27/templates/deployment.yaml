@@ -21,11 +21,10 @@ spec:
     spec:
       containers:
         - name: {{ .Values.conatiner.name1 }}
-          image: "{{ .Values.image1.repository }}:{{ .Values.image1.tag }}"
+          image: "{{ .Values.image1.repository }}"
           ports:
             - containerPort: 80
-      imagePullSecrets:
-        - name: regsecret
+        
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -49,7 +48,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.conatiner.name1 }}
-          image: "{{ .Values.image2.repository }}:{{ .Values.image2.tag }}"
+          image: "{{ .Values.image2.repository }}"
           ports:
             - containerPort: 8090
           env:
@@ -59,8 +58,6 @@ spec:
               value: {{ .Values.secert.Spring_user }} 
             - name: spring_datasource_password
               value: {{ .Values.secert.Spring_passwd }}
-      imagePullSecrets:
-        - name: regsecret        
 ---
 apiVersion: apps/v1
 kind: Deployment
