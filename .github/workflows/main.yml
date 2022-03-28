@@ -113,7 +113,7 @@ jobs:
           aws-region: us-east-1
         
       - name: helm deploy
-        uses: koslib/helm-eks-action@master
+        uses: scalive/github-action-eks-helm@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
