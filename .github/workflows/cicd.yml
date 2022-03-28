@@ -86,7 +86,7 @@
          run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/frontdeployment:${{ github.run_id }}
 
 
-    deploy:
+   deploy:
       runs-on: ubuntu-latest
       needs:
         - frontend
