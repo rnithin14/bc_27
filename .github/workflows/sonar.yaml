@@ -1,4 +1,12 @@
-Backend_build:
+name: Build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  sonarcloud:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -11,18 +19,18 @@ Backend_build:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      # - name: Cache SonarCloud packages
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.sonar/cache
-      #     key: ${{ runner.os }}-sonar
-      #     restore-keys: ${{ runner.os }}-sonar
-      # - name: Cache Maven packages
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: ~/.m2
-      #     key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-      #     restore-keys: ${{ runner.os }}-m2
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Build and Test
         working-directory: backend
         run: mvn clean test package -Dspring.profiles.active=test -Dspring.datasource.password=${{ secrets.MYSQL_PASSWORD }} -Dspring.datasource.username=${{ secrets.MYSQL_USERNAME }} -Dapi_key=${{ secrets.API_KEY }}
